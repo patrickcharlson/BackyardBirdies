@@ -9,8 +9,7 @@ import Foundation
 import SwiftData
 import Observation
 
-@Model
-public class BirdSpecies {
+@Model public class BirdSpecies {
     @Attribute(.unique) public var id: String
     public var naturalScale: Double
     public var isEarlyAccess: Bool

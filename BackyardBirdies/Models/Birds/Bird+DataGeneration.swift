@@ -13,7 +13,7 @@ extension Bird {
     static func generateAll(modelContext: ModelContext) {
         var random = SeededRandomGenerator(seed: 1)
         
-        let allBirdSpecies = try! modelContext.fetch(FetchDescriptor<BirdSpecies>(sortBy: [.init(\.id)]))
+        let allBirdSpecies = try! modelContext.fetch(FetchDescriptor<BirdSpecies>())
         
         let hummingbirdSpecies = allBirdSpecies.first(where: { $0.info == .hummingbird })!
         

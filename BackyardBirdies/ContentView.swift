@@ -27,5 +27,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-//        .backyardBirdsDataContainer(inMemory: true)
+        .backyardBirdsDataContainer(inMemory: true)
 }

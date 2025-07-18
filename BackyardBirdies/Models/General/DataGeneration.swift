@@ -11,8 +11,8 @@ import OSLog
 
 private let logger = Logger(subsystem: "BackyardBirdsData", category: "DataGeneration")
 
-@Model
-public class DataGeneration {
+
+@Model public class DataGeneration {
     public var initializationDate: Date?
     public var lastSimulationDate: Date?
     
@@ -39,14 +39,23 @@ public class DataGeneration {
     private func generateInitialData(modelContext: ModelContext) {
         logger.info("Generating initial data...")
         
+        
         logger.info("Generating all bird species")
         BirdSpecies.generateAll(modelContext: modelContext)
+        
+        logger.info("Generating all plant species")
+        PlantSpecies.generateAll(modelContext: modelContext)
+        
+        logger.info("Generating initial instances of individual plants")
+        Plant.generateIndividualPlants(modelContext: modelContext)
         
         logger.info("Generating initial instances of all birds")
         Bird.generateAll(modelContext: modelContext)
         
         logger.info("Generating initial instances of backyards")
         Backyard.generateAll(modelContext: modelContext)
+        
+        logger.info("Completed generating initial data")
         initializationDate = .now
     }
     
@@ -71,9 +80,13 @@ public class DataGeneration {
 }
 
 public extension DataGeneration {
+    static let container = try! ModelContainer(for: schema, configurations: [.init(isStoredInMemoryOnly: DataGenerationOptions.inMemoryPersistence)])
+    
     static let schema = SwiftData.Schema([
         DataGeneration.self,
         BirdSpecies.self,
+        PlantSpecies.self,
+        Plant.self,
         Bird.self,
         Backyard.self,
     ])

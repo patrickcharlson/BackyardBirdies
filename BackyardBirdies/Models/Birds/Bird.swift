@@ -29,7 +29,7 @@ public class Bird {
     }
 }
 
-public enum BirdTag: String, Codable {
+public enum BirdTag: String, Codable, Hashable {
     case classicGreenHummingbird
     case premiumGoldHummingbird
 }

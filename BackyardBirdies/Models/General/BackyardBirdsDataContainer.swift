@@ -11,7 +11,7 @@ import SwiftData
 struct BackyardBirdsDataContainer: ViewModifier {
     let container: ModelContainer
     
-    init(inMemory: Bool){
+    init(inMemory: Bool) {
         container = try! ModelContainer(for: DataGeneration.schema, configurations: [ModelConfiguration(isStoredInMemoryOnly: inMemory)])
     }
     

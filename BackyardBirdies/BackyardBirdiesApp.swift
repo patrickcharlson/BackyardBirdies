@@ -10,7 +10,6 @@ import SwiftData
 
 @main
 struct BackyardBirdiesApp: App {
-
     var body: some Scene {
         WindowGroup {
             ContentView()
