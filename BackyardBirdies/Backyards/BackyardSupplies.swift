@@ -9,6 +9,8 @@ import Foundation
 
 private let timeIntervalUntilFoodLow = TimeInterval(hours: 8)
 private let timeIntervalUntilWaterLow = TimeInterval(hours: 15)
+private let timeIntervalUntilFoodEmpty = timeIntervalUntilFoodLow + TimeInterval(hours: 1)
+private let timeIntervalUntilWaterEmpty = timeIntervalUntilWaterLow + TimeInterval(hours: 1)
 
 public enum BackyardSupplies: CaseIterable {
     case food
@@ -20,6 +22,15 @@ public enum BackyardSupplies: CaseIterable {
             timeIntervalUntilFoodLow
         case .water:
             timeIntervalUntilWaterLow
+        }
+    }
+    
+    public var totalDuration: TimeInterval {
+        switch self {
+        case .food:
+            timeIntervalUntilFoodEmpty
+        case .water:
+            timeIntervalUntilWaterEmpty
         }
     }
 }

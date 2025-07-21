@@ -16,11 +16,13 @@ extension Backyard {
         
         logger.info("Generating All Backyards...")
         let allPlantSpecies = try! modelContext.fetch(FetchDescriptor<PlantSpecies>())
+        let allBirdFood = try! modelContext.fetch(FetchDescriptor<BirdFood>())
         
         logger.info("Generating first backyard...")
         let backyard1 = Backyard(name: String(localized: "Bird Springs", table: "Backyards"))
         modelContext.insert(backyard1)
         backyard1.isFavorite = true
+        backyard1.birdFood = allBirdFood.first(where: { $0.id == "Sunflower Seeds" })
         backyard1.timeIntervalOffset = TimeInterval(hours: 8)
         backyard1.leadingPlants = [
             .generateAndInsert(species: allPlantSpecies.randomElement(using: &random)!, modelContext: modelContext, random: &random),
@@ -48,6 +50,7 @@ extension Backyard {
         func generateRandomBackyard(name: String, timeOffset: Double) {
             let backyard = Backyard(name: name)
             modelContext.insert(backyard)
+            backyard.birdFood = allBirdFood.randomElement(using: &random)!
             backyard.timeIntervalOffset = timeOffset
             backyard.leadingPlants = (0..<3).map { _ in
                     .generateAndInsert(species: allPlantSpecies.randomElement(using: &random)!, modelContext: modelContext, random: &random)
@@ -56,6 +59,13 @@ extension Backyard {
             backyard.trailingPants = (0..<3).map{ _ in
                     .generateAndInsert(species: allPlantSpecies.randomElement(using: &random)!, modelContext: modelContext, random: &random)
             }
+            backyard.waterRefillDate = Date(timeIntervalSinceNow: -BackyardSupplies.water.durationUntilLow *
+                .random(in: 0.25 ..< 0.75, using: &random))
+            backyard.foodRefillDate = Date(timeIntervalSinceNow: -BackyardSupplies.food.durationUntilLow * .random(in: 0.25 ..< 0.75, using: &random))
+            backyard.floorVariant = .random(in: 0..<4, using: &random)
+            backyard.fountainVariant = .random(in: 0..<3, using: &random)
+            backyard.leadingSilhoutteVariant = .random(in: 0..<10, using: &random)
+            backyard.trailingSilhoutteVariant = .random(in: 0..<10, using: &random)
         }
         
         generateRandomBackyard(name: String(localized: "Feathered Friends", table: "Backyards"), timeOffset: TimeInterval(hours: 12))

@@ -20,6 +20,13 @@ struct BackyardGrid: View {
                 BackyardsSearchResults(searchText: $searchText)
             }
         }
+        .contentMargins([.horizontal, .bottom], 10, for: .scrollContent)
+        .searchable(text: $searchText)
+        .searchSuggestions {
+            if searchText.isEmpty {
+                BackyardSearchSuggestions()
+            }
+        }
     }
     
     /// A Boolean value indicating whether the new bird indicator card should be presented in the view.
@@ -32,5 +39,9 @@ struct BackyardGrid: View {
 }
 
 #Preview {
-    BackyardGrid()
+    NavigationStack {
+        BackyardGrid()
+            .navigationTitle("Backyards")
+    }
+    .backyardBirdsDataContainer(inMemory: true)
 }

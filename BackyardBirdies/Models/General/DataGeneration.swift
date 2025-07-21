@@ -39,6 +39,8 @@ private let logger = Logger(subsystem: "BackyardBirdsData", category: "DataGener
     private func generateInitialData(modelContext: ModelContext) {
         logger.info("Generating initial data...")
         
+        logger.info("Generating all bird foods")
+        BirdFood.generateAll(modelContext: modelContext)
         
         logger.info("Generating all bird species")
         BirdSpecies.generateAll(modelContext: modelContext)

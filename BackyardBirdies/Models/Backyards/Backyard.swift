@@ -13,11 +13,13 @@ public class Backyard {
     @Attribute(.unique) public var id: String
     public var name: String
     public var waterRefillDate: Date
+    public var foodRefillDate: Date
     public var isFavorite: Bool
     public var visitorEvents: [BackyardVisitorEvent] = []
     public var timeIntervalOffset: TimeInterval
     public var creationDate: Date
     public var presentingVisitor: Bool
+    public var birdFood: BirdFood?
     
     @Relationship(inverse: \Plant.backyard)
     public var leadingPlants: [Plant] = []
@@ -43,6 +45,12 @@ public class Backyard {
         currentVisitorEvent != nil
     }
     
+    public var historicalEvents: [BackyardVisitorEvent] {
+        visitorEvents
+            .filter { $0.endDate < .now }
+            .sorted(using: KeyPathComparator(\.endDate, order: .reverse))
+    }
+    
     public var needsToPresentVisitor: Bool {
         hasVisitor && !presentingVisitor
     }
@@ -56,6 +64,7 @@ public class Backyard {
         self.name = name ?? String(localized: "Backyard", table: "backyards")
         self.waterRefillDate = .now
         self.creationDate = .now
+        self.foodRefillDate = .now
         self.isFavorite = false
         self.presentingVisitor = false
         self.timeIntervalOffset = TimeInterval(hours: 12)
@@ -65,5 +74,18 @@ public class Backyard {
         self.trailingSilhoutteVariant = 0
         self.leadingForegroundPlantVariant = 0
         self.trailingForegroundPlantVariant = 0
+    }
+    
+    public func expectedEmptyDate(for supplies: BackyardSupplies) -> Date {
+        refillDate(for: supplies).addingTimeInterval(supplies.totalDuration)
+    }
+    
+    public func refillDate(for supplies: BackyardSupplies) -> Date {
+        switch supplies {
+        case .food:
+            foodRefillDate
+        case .water:
+            waterRefillDate
+        }
     }
 }
