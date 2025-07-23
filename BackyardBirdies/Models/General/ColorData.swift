@@ -12,6 +12,10 @@ public struct ColorData: Codable {
     public var saturation: Double
     public var brightness: Double
     
+    // •    hue: the base color (range 0–1, where 0 = red, 0.33 = green, 0.66 = blue, etc.)
+    // •    saturation: the intensity of the color (0 = grayscale, 1 = full color)
+    // •    brightness: how bright the color is (0 = black, 1 = full brightness)
+    
     public init(hue: Double, saturation: Double, brightness: Double) {
         self.hue = hue
         self.saturation = saturation

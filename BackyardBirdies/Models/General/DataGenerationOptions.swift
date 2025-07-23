@@ -15,6 +15,8 @@ public class DataGenerationOptions {
     
     /// A Boolean that you set to indicate whether the first backyard is initially low on water.
     public static let firstBackyardLowOnWater = false
+    
+    public static let initialOwnedBirdFoods: [String: Int] = ["Nutrition Pellet": 3]
 
     
     

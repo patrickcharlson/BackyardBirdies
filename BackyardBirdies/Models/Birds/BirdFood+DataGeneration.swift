@@ -103,6 +103,13 @@ private let logger = Logger(subsystem: "Backyard Birds Data", category: "BirdFoo
              summary: String(localized: "Winter delight to make for a cozy backyard.", table: "BirdFood")
          ))
          
+         for food in try! modelContext.fetch(FetchDescriptor<BirdFood>()) {
+             if let quantity = DataGenerationOptions.initialOwnedBirdFoods[food.id] {
+                 food.ownedQuantity = quantity
+             }
+         }
+
+         
          logger.info("Completed generating all of the bird food.")
 
 

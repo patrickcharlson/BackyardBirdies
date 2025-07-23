@@ -46,4 +46,9 @@ extension BirdFood {
         Image("Bird Food/\(id)")
             .resizable()
     }
+    
+    public var alternateImage: Image {
+        Image("Bird Food/Shop Alternates/\(id)")
+            .resizable()
+    }
 }

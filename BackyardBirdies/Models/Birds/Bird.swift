@@ -15,14 +15,16 @@ public class Bird {
     public var species: BirdSpecies?
     public var tag: String?
     public var lastKnowVisit: Date?
+    public var colors: BirdPalette
     
     public var backgroundTimeInterval: Double
     
     public var speciesName: String { species?.info.name ?? "- Species name is missing. -"}
     
-    public init(creationDate: Date = .now, tag: BirdTag? = nil, backgroundTimeInterval: TimeInterval = TimeInterval(hours: 10)) {
+    public init(creationDate: Date = .now, colors: BirdPalette, tag: BirdTag? = nil, backgroundTimeInterval: TimeInterval = TimeInterval(hours: 10)) {
         self.id = UUID().uuidString
         self.creationDate = creationDate
+        self.colors = colors
         self.tag = tag?.rawValue
         self.backgroundTimeInterval = backgroundTimeInterval
         

@@ -20,6 +20,7 @@ extension Bird {
         do {
             let bird = Bird(
                 creationDate: .init(timeIntervalSinceNow: -5),
+                colors: .hummingbirdPalettes[0],
                 tag: .classicGreenHummingbird,
                 backgroundTimeInterval: TimeInterval(hours: 12)
             )
@@ -32,6 +33,7 @@ extension Bird {
         do {
             let bird = Bird(
                 creationDate: .init(timeIntervalSinceNow: -3),
+                colors: .hummingbirdPalettes[2],
                 tag: .premiumGoldHummingbird,
                 backgroundTimeInterval: TimeInterval(hours: 12)
             )
@@ -53,6 +55,7 @@ extension Bird {
         
         func generateBird(species: BirdSpecies) {
             let bird = Bird(
+                colors: .generateColors(info: species.info, random: &random),
                 backgroundTimeInterval: .random(in: 0..<TimeInterval(days: 1), using: &random))
             modelContext.insert(bird)
             bird.species = species

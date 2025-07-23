@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct BirdsScreen: View {
+    @State private var searchText: String = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ScrollView {
+                LazyVGrid(columns: [.init(.adaptive(minimum: 110), alignment: .top)], spacing: 20) {
+                    BirdsSearchResults(searchText: $searchText) { bird in
+                        BirdGridItem(bird: bird)
+                    }
+                }
+            }
+        }
     }
 }
 
