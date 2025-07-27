@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct PlantsScreen: View {
+    @State private var searchText: String = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 110), alignment: .top)], spacing: 20) {
+                    PlantsSearchResults(searchText: $searchText)
+                }
+            }
+            .searchable(text: $searchText)
+            .searchSuggestions {
+                if searchText.isEmpty {
+                    PlantsSearchSuggestions()
+                }
+            }
+            .contentMargins(20, for: .scrollContent)
+            .navigationTitle("Plants")
+        }
     }
 }
 
 #Preview {
     PlantsScreen()
+        .backyardBirdsDataContainer(inMemory: true)
 }

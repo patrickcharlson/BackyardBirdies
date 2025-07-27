@@ -15,6 +15,8 @@ import SwiftData
     public var backyard: Backyard?
     public var species: PlantSpecies?
     
+    public var speciesName: String { species?.info.name ?? "- Plant species name is missing -"}
+    
     public init(id: UUID = UUID(), variant: Int) {
         self.id = id.uuidString
         self.variant = variant
