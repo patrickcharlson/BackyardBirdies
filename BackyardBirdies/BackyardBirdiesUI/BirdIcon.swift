@@ -28,7 +28,7 @@ struct BirdIcon: View {
                     .opacity(0.8)
                     .clipShape(.containerRelative)
             }
-            .background(.fill.tertiary)
+//            .background(.fill.tertiary)
             .overlay {
                 ContainerRelativeShape().strokeBorder(.tertiary)
             }

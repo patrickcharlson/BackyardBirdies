@@ -19,10 +19,19 @@ struct BirdsScreen: View {
                     }
                 }
             }
+            .contentMargins(20, for: .scrollContent)
+            .navigationTitle("Birds")
+            .searchable(text: $searchText)
+            .searchSuggestions {
+                if searchText.isEmpty {
+                    BirdSearchSuggestions()
+                }
+            }
         }
     }
 }
 
 #Preview {
     BirdsScreen()
+        .backyardBirdsDataContainer(inMemory: true)
 }

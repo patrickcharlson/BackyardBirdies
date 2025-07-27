@@ -13,6 +13,16 @@ struct BirdGridItem: View {
     var body: some View {
         VStack {
             BirdIcon(bird: bird, insets: 10)
+                .padding(.horizontal, 10)
+            
+            VStack {
+                Text(bird.speciesName)
+                    .font(.callout)
+                Text(bird.visitStatus.title)
+                    .foregroundStyle(.secondary)
+                    .font(.caption)
+            }
+            .multilineTextAlignment(.center)
         }
     }
 }

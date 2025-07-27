@@ -21,6 +21,14 @@ public class Bird {
     
     public var speciesName: String { species?.info.name ?? "- Species name is missing. -"}
     
+    public var visitStatus: BirdVisitStatus {
+        if let lastKnowVisit {
+            .recently(lastKnowVisit)
+        } else {
+            .never
+        }
+    }
+    
     public init(creationDate: Date = .now, colors: BirdPalette, tag: BirdTag? = nil, backgroundTimeInterval: TimeInterval = TimeInterval(hours: 10)) {
         self.id = UUID().uuidString
         self.creationDate = creationDate

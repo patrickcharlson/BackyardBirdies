@@ -35,7 +35,7 @@ struct ComposeBird: View {
                 }
             }
         }
-        .scaleEffect(x: direction == .trailing ? -1 : 1)
+        .scaleEffect(x: direction == .trailing ? 1 : -1)
         .flipsForRightToLeftLayoutDirection(true)
         .id(bird.id)
     }
