@@ -37,6 +37,14 @@ public class Bird {
         self.backgroundTimeInterval = backgroundTimeInterval
         
     }
+    
+    public func updateVisitStatus(visitedOn date: Date) {
+        guard date <= .now else { return }
+        if let lastKnowVisit, lastKnowVisit > date {
+            return
+        }
+        lastKnowVisit = date
+    }
 }
 
 public enum BirdTag: String, Codable, Hashable {

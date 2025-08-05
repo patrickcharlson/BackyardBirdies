@@ -57,8 +57,20 @@ private let logger = Logger(subsystem: "BackyardBirdsData", category: "DataGener
         logger.info("Generating initial instances of backyards")
         Backyard.generateAll(modelContext: modelContext)
         
+        logger.info("Generating account")
+        Account.generateAccount(modelContext: modelContext)
+        
         logger.info("Completed generating initial data")
         initializationDate = .now
+    }
+    
+    private func generateVisitorEvents(modelContext: ModelContext, includeEarlyAccessSpecies: Bool = false) {
+        guard lastSimulationDate == nil else {
+            return
+        }
+        logger.info("Generating visitor events")
+        BackyardVisitorEvent.generateHistoricalEvents(modelContext: modelContext, includeEarlyAccessSpecies: includeEarlyAccessSpecies)
+        lastSimulationDate = .now
     }
     
     private static func instance(with modelContext: ModelContext) -> DataGeneration {
@@ -79,6 +91,11 @@ private let logger = Logger(subsystem: "BackyardBirdsData", category: "DataGener
         logger.info("Attempting to statically simulate historical events...")
         instance.simulateHistoricalEvents(modelContext: modelContext)
     }
+    
+    public static func generateVisitorEvents(modelContext: ModelContext, includeEarlyAccessSpecies: Bool = false) {
+        let instance = instance(with: modelContext)
+        instance.generateVisitorEvents(modelContext: modelContext, includeEarlyAccessSpecies: includeEarlyAccessSpecies)
+    }
 }
 
 public extension DataGeneration {
@@ -90,6 +107,9 @@ public extension DataGeneration {
         PlantSpecies.self,
         Plant.self,
         Bird.self,
+        BirdFood.self,
         Backyard.self,
+        BackyardVisitorEvent.self,
+        Account.self
     ])
 }

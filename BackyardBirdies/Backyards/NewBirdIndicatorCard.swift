@@ -18,10 +18,10 @@ struct NewBirdIndicatorCard: View {
                 NewBirdIndicator()
                 VStack(alignment: .leading) {
                     Text("\(bird.speciesName) is visiting", comment: "Variable is a bird species")
-                        .font(.headline)
+//                        .font(.headline)
                     Text("Arrived in \(backyard.name)", comment: "Variable is a backyard name")
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
+//                        .font(.callout)
+//                        .foregroundStyle(.secondary)
                 }
             }
         }

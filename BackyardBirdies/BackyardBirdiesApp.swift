@@ -13,6 +13,7 @@ struct BackyardBirdiesApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .backyardBirdsShop()
                 .backyardBirdsDataContainer()
         }
     }
