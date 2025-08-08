@@ -108,10 +108,6 @@ private let logger = Logger(subsystem: "Backyard Birds Data", category: "BirdFoo
                  food.ownedQuantity = quantity
              }
          }
-
-         
          logger.info("Completed generating all of the bird food.")
-
-
      }
 }

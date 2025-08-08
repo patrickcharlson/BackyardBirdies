@@ -96,26 +96,26 @@ struct BackyardViewport: View {
                 withAnimation(.spring(duration: 2, bounce: 0.25)) {
                     birdAnimation = .init(offset: CGSize(width: 50, height: -10), scale: 1.5, rotation: .degrees(-25))
                 }
-//                try await Task.sleep(for: .seconds(2))
-//                withAnimation(.spring(duration: 2, bounce: 0.5)) {
-//                    birdAnimation = .init(offset: CGSize(width: -100, height: 0), scale: 1.2, rotation: .degrees(0))
-//                }
-//                try await Task.sleep(for: .seconds(2))
-//                withAnimation(.spring(duration: 0.25, bounce: 0)) {
-//                    birdAnimation.flip = true
-//                }
-//                try await Task.sleep(for: .seconds(0.1))
-//                withAnimation(.spring(duration: 2, bounce: 0.5)) {
-//                    birdAnimation = .init(offset: CGSize(width: 40, height: -10), scale: 0.9, rotation: .degrees(4), flip: true)
-//                }
-//                try await Task.sleep(for: .seconds(2))
-//                withAnimation(.spring(duration: 0.25, bounce: 0)) {
-//                    birdAnimation.flip = false
-//                }
-//                try await Task.sleep(for: .seconds(0.1))
-//                withAnimation(.spring(duration: 2, bounce: 0.5)) {
-//                    birdAnimation = .init(offset: CGSize(width: 10, height: 0), scale: 1, rotation: .degrees(0))
-//                }
+                try await Task.sleep(for: .seconds(2))
+                withAnimation(.spring(duration: 2, bounce: 0.5)) {
+                    birdAnimation = .init(offset: CGSize(width: -100, height: 0), scale: 1.2, rotation: .degrees(0))
+                }
+                try await Task.sleep(for: .seconds(2))
+                withAnimation(.spring(duration: 0.25, bounce: 0)) {
+                    birdAnimation.flip = true
+                }
+                try await Task.sleep(for: .seconds(0.1))
+                withAnimation(.spring(duration: 2, bounce: 0.5)) {
+                    birdAnimation = .init(offset: CGSize(width: 40, height: -10), scale: 0.9, rotation: .degrees(4), flip: true)
+                }
+                try await Task.sleep(for: .seconds(2))
+                withAnimation(.spring(duration: 0.25, bounce: 0)) {
+                    birdAnimation.flip = false
+                }
+                try await Task.sleep(for: .seconds(0.1))
+                withAnimation(.spring(duration: 2, bounce: 0.5)) {
+                    birdAnimation = .init(offset: CGSize(width: 10, height: 0), scale: 1, rotation: .degrees(0))
+                }
             }
         }
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BirdSpeciesInfo: Codable, CaseIterable, Hashable, RawRepresentable {
+public struct BirdSpeciesInfo: RawRepresentable, Codable, CaseIterable, Hashable  {
     public var rawValue: String
     
     public init(rawValue: String) {

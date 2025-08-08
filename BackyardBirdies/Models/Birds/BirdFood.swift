@@ -20,6 +20,12 @@ import SwiftUI
         !products.isEmpty
     }
     
+    public var orderedProducts: [Product] {
+        products.sorted { lhs, rhs in
+            lhs.quantity > rhs.quantity
+        }
+    }
+    
     public init(
         id: String,
         name: String,
