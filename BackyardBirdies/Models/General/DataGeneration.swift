@@ -62,6 +62,12 @@ private let logger = Logger(subsystem: "BackyardBirdsData", category: "DataGener
         
         logger.info("Completed generating initial data")
         initializationDate = .now
+        
+//        // TESTING: - Purposes
+//        logger.info("Generating visitor events")
+//        BackyardVisitorEvent.generateHistoricalEvents(modelContext: modelContext, includeEarlyAccessSpecies: includeEarlyAccessSpecies)
+//        BackyardVisitorEvent.generateCurrentEvents(modelContext: modelContext, includeEarlyAccessSpecies: includeEarlyAccessSpecies)
+//        lastSimulationDate = .now
     }
     
     private func generateVisitorEvents(modelContext: ModelContext, includeEarlyAccessSpecies: Bool = false) {
@@ -70,6 +76,7 @@ private let logger = Logger(subsystem: "BackyardBirdsData", category: "DataGener
         }
         logger.info("Generating visitor events")
         BackyardVisitorEvent.generateHistoricalEvents(modelContext: modelContext, includeEarlyAccessSpecies: includeEarlyAccessSpecies)
+        BackyardVisitorEvent.generateCurrentEvents(modelContext: modelContext, includeEarlyAccessSpecies: includeEarlyAccessSpecies)
         lastSimulationDate = .now
     }
     

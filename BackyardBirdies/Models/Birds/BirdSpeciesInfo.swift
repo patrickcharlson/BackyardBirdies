@@ -7,14 +7,14 @@
 
 import Foundation
 
-public struct BirdSpeciesInfo: RawRepresentable, Codable, CaseIterable, Hashable  {
+nonisolated public struct BirdSpeciesInfo: RawRepresentable, Codable, CaseIterable, Hashable  {
     public var rawValue: String
     
     public init(rawValue: String) {
         self.rawValue = rawValue
     }
     
-    public static var allCases: [BirdSpeciesInfo] = [
+    public static var allCases: [Self] = [
         .swallow, .dove, .chickadee, .petrel, .cardinal, .hummingbird
     ]
     

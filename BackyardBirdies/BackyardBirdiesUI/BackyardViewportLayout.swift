@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum BackyardViewportContent: Hashable {
+nonisolated enum BackyardViewportContent: Hashable {
     case silhouette
     case horizon(HorizontalEdge)
     case floor
@@ -16,8 +16,8 @@ enum BackyardViewportContent: Hashable {
     case bird
 }
 
-struct BackyardViewportContentKey: LayoutValueKey {
-    static var defaultValue: BackyardViewportContent = .fountain
+nonisolated struct BackyardViewportContentKey: LayoutValueKey {
+    static let defaultValue: BackyardViewportContent = .fountain
 }
 
 struct BackyardViewportLayout: Layout {

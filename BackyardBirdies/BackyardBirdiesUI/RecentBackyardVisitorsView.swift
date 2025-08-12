@@ -25,6 +25,14 @@ struct RecentBackyardVisitorsView: View {
     }
     
     var body: some View {
+        ForEach(events) { event in
+            HStack {
+                if let bird = event.bird {
+                    BirdIcon(bird: bird)
+                        .frame(width: 60, height: 60)
+                }
+            }
+        }
         
     }
 }

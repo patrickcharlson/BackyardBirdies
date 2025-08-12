@@ -13,7 +13,8 @@ extension Bird {
     static func generateAll(modelContext: ModelContext) {
         var random = SeededRandomGenerator(seed: 1)
         
-        let allBirdSpecies = try! modelContext.fetch(FetchDescriptor<BirdSpecies>())
+        let allBirdFoods = try! modelContext.fetch(FetchDescriptor<BirdFood>(sortBy: [.init(\.id)]))
+        let allBirdSpecies = try! modelContext.fetch(FetchDescriptor<BirdSpecies>(sortBy: [.init(\.id)]))
         
         let hummingbirdSpecies = allBirdSpecies.first(where: { $0.info == .hummingbird })!
         
@@ -27,6 +28,7 @@ extension Bird {
             
             modelContext.insert(bird)
             bird.species = hummingbirdSpecies
+            bird.favoriteFood = allBirdFoods.randomElement(using: &random)!
         }
         
         
@@ -40,6 +42,7 @@ extension Bird {
             
             modelContext.insert(bird)
             bird.species = hummingbirdSpecies
+            bird.favoriteFood = allBirdFoods.randomElement(using: &random)!
         }
         
         for species in allBirdSpecies {
@@ -54,11 +57,23 @@ extension Bird {
         }
         
         func generateBird(species: BirdSpecies) {
+            let favoriteFood = allBirdFoods.randomElement(using: &random)!
+            var dislikedFoods: [BirdFood] = []
+            let totalUnfavored = Int.random(in: 0..<3, using: &random)
+            var remainingFood = allBirdFoods
+            remainingFood.removeAll(where: { $0.id == favoriteFood.id })
+            for _ in 0..<totalUnfavored {
+                let food = remainingFood.randomElement(using: &random)!
+                dislikedFoods.append(food)
+                remainingFood.removeAll(where: { $0.id == food.id })
+            }
             let bird = Bird(
                 colors: .generateColors(info: species.info, random: &random),
                 backgroundTimeInterval: .random(in: 0..<TimeInterval(days: 1), using: &random))
             modelContext.insert(bird)
             bird.species = species
+            bird.favoriteFood = favoriteFood
+            bird.dislikedFoods = dislikedFoods
         }
     }
 }

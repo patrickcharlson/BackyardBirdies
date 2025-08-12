@@ -19,7 +19,7 @@ extension BackyardVisitorEvent {
         let birds =  try! modelContext.fetch(FetchDescriptor<Bird>())
             .shuffled(using: &random)
             .filter { includeEarlyAccessSpecies || !($0.species?.isEarlyAccess ?? false) }
-        let backyards = try! modelContext.fetch(FetchDescriptor<Backyard>())
+        let backyards = try! modelContext.fetch(FetchDescriptor<Backyard>(sortBy: [.init(\.id)]))
         
         for minutesAgo in stride(from: 5, through: 300, by: 40) {
             for (backyard, bird) in zip(backyards, birds.shuffled(using: &random)) {
@@ -42,11 +42,11 @@ extension BackyardVisitorEvent {
         var random = SeededRandomGenerator(seed: 4)
         
         logger.info("Generating current visitor events")
-        let allBirds =  try! modelContext.fetch(FetchDescriptor<Bird>())
+        let allBirds = try! modelContext.fetch(FetchDescriptor<Bird>(sortBy: [.init(\.creationDate)]))
             .filter { includeEarlyAccessSpecies || !($0.species?.isEarlyAccess ?? false) }
         let birds = allBirds.shuffled(using: &random)
         let firstHummingBird = allBirds.first(where: { ($0.species?.info ?? .dove) == .hummingbird })!
-        let backyards = try! modelContext.fetch(FetchDescriptor<Backyard>())
+        let backyards = try! modelContext.fetch(FetchDescriptor<Backyard>(sortBy: [.init(\.creationDate)]))
         let firstBackyard = backyards.first!
         
         let duration = DataGenerationOptions.currentBirdsVisitingDuration

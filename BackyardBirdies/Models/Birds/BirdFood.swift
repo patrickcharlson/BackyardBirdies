@@ -7,6 +7,9 @@
 
 import SwiftData
 import SwiftUI
+import OSLog
+
+private let logger = Logger(subsystem: "Backyard Birds Data", category: "BirdFood")
 
 @Model public class BirdFood {
     @Attribute(.unique) public var id: String
@@ -47,6 +50,8 @@ import SwiftUI
     }
 }
 
+// MARK: - All Bird Food
+
 extension BirdFood {
     public var image: Image {
         Image("Bird Food/\(id)")
@@ -56,5 +61,17 @@ extension BirdFood {
     public var alternateImage: Image {
         Image("Bird Food/Shop Alternates/\(id)")
             .resizable()
+    }
+}
+
+extension Sequence where Element == BirdFood {
+    
+    public nonisolated func birdFood(for productID: String) -> (BirdFood, BirdFood.Product)? {
+        lazy.compactMap { birdFood in
+            birdFood.products
+                .first { $0.id == productID }
+                .map { (birdFood, $0) }
+        }
+        .first
     }
 }

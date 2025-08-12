@@ -8,11 +8,13 @@
 import SwiftData
 import Foundation
 
-@Model
-public class Bird {
+@Model public class Bird {
     @Attribute(.unique) public var id: String
     public var creationDate: Date
+    
     public var species: BirdSpecies?
+    public var favoriteFood: BirdFood?
+    public var dislikedFoods: [BirdFood] = []
     public var tag: String?
     public var lastKnowVisit: Date?
     public var colors: BirdPalette

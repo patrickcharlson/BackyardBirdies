@@ -11,7 +11,7 @@ import OSLog
 
 private let logger = Logger(subsystem: "BackyardBirds", category: "BackyardBirdsPassStatus")
 
-enum PassStatus: Comparable, Hashable {
+nonisolated enum PassStatus: Comparable, Hashable {
     case notSubscribed
     case individual
     case family
@@ -25,12 +25,21 @@ enum PassStatus: Comparable, Hashable {
         default : .notSubscribed
         }
     }
+    
+    nonisolated init?(productID: Product.ID, ids: PassIdentifiers) {
+        switch productID {
+        case ids.individual: self = .individual
+        case ids.family: self = .family
+        case ids.premium: self = .premium
+        default: return nil
+        }
+    }
 }
 
 extension EnvironmentValues {
     
     private enum PassStatusEnvrionmentKey: EnvironmentKey {
-        static let defaultValue: PassStatus = .individual
+        static let defaultValue: PassStatus = .premium
     }
     
     fileprivate(set) var passStatus: PassStatus {
@@ -48,6 +57,14 @@ private struct PassStatusTaskModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .subscriptionStatusTask(for: passIDs.group) { state in
+                logger.info("Checking subscription status")
+                guard let birdBrain = BirdBrain.shared else { fatalError("BirdBrain was nil.") }
+                self.state = await state.map { @Sendable [passIDs] statuses in
+                    await birdBrain.status(
+                        for: statuses,
+                        ids: passIDs
+                    )
+                }
                 switch self.state {
                 case .failure(let error):
                     logger.error("Failed to check subscription status: \(error)")

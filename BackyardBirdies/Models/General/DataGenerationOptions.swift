@@ -8,7 +8,7 @@
 import Foundation
 public class DataGenerationOptions {
     /// A Boolean that you set to indicate whether to display a new bird indicator using PhaseAnimator in SwiftUI.
-    public static let showNewBirdIndicatorCard = false
+    public static let showNewBirdIndicatorCard = true
     
     /// When true, do not save data to disk. When false, saves data to disk.
     public static let inMemoryPersistence = true
